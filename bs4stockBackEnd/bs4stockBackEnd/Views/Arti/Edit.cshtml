@@ -1,0 +1,49 @@
+﻿@model bs4stockBackEnd.Models.Arti
+
+@{
+    ViewBag.Title = "編輯影音文章";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h2  class="text-white mt-5">編輯影音文章</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ArId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArName, htmlAttributes: new { @class = "control-label col-md-2 text-white mt-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArCt, htmlAttributes: new { @class = "control-label col-md-2 text-white mt-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArCt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ArCt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("回到影音文章列表", "Index", new { }, new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

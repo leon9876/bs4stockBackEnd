@@ -1,0 +1,177 @@
+﻿@model bs4stockBackEnd.viewModels.VMRpt
+
+@{
+    ViewBag.Title = "舉報狀態列表";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h1 class="alert alert-danger">警告，判定已違規2次的會員有新違規後，將永久停權此會員</h1>
+
+<h2 class="text-white mt-5">舉報狀態列表</h2>
+
+@using (Html.BeginForm())
+{
+    <h2>搜尋條件</h2>
+    <div class="form-group row">
+        <label for="select" class="col-form-label col-1">違規次數</label>
+        <select id="selector" name="selector" class="form-control col-2">
+            <option value="">請選擇</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </div>
+    <input id="Submit1" type="submit" value="送出" class="mb-2 btn btn-success" />
+}
+<table class="table table-striped bg-light">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Report[0].RptId)
+            </th>
+            <th>
+                被舉報會員姓名
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsLkC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Massage[0].MsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Report[0].RptRs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Massage[0].MsCont)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaginatedReport())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RptId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mber.UsName)
+                </td>
+                <td>
+                    @if (item.Mber.UsLkC == 2)
+                    {
+                        <span class="text-danger">
+                            @Html.DisplayFor(modelItem => item.Mber.UsLkC)
+                        </span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Mber.UsLkC)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Massage.MsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RptRs)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Massage.MsCont)
+                </td>
+                <td>
+                    @if (item.Mber.UsLkC == 2)
+                    {
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#foreverViolate">有違規</button>
+                        <div class="modal fade" id="foreverViolate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">再次確認</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        永久停權此會員嗎?
+                                    </div>
+                                    <div class="modal-footer">
+                                        @Html.ActionLink("確定","violate", "Report",new { UsId = item.UsId },new { @class="btn btn-primary"})
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#violate">
+                            有違規
+                        </button>
+                        <div class="modal fade" id="violate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">再次確認</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        停權此會員嗎?
+                                    </div>
+                                    <div class="modal-footer">
+                                        @Html.ActionLink("確定", "violate", "Report", new { UsId = item.UsId }, new { @class = "btn btn-primary" })
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#unViolate">
+                        沒有違規
+                    </button>
+                    <div class="modal fade" id="unViolate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">再次確認</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    確定沒違規嗎?
+                                </div>
+                                <div class="modal-footer">
+                                    @Html.ActionLink("確定", "unViolate", "Report", new { UsId = item.UsId }, new { @class = "btn btn-primary" })
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.PageCount(ViewBag.Count); i++)
+        {
+            <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+
+

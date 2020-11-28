@@ -1,0 +1,61 @@
+﻿@model bs4stockBackEnd.viewModels.VMpage
+
+@{
+    ViewBag.Title = "管理員列表";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h2 class="text-white mt-5">管理員列表</h2>
+
+<p>
+    @Html.ActionLink("新增管理員", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped bg-light">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mager[0].MaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mager[0].MaAct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mager[0].AuthorityS)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaginatedMager())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaAct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorityS)
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new { MaId = item.MaId }, new { @class = "btn btn-warning" }) |
+                    @*@Html.ActionLink("詳細資料", "Details", new { MaId = item.MaId }) |*@
+                    @Html.ActionLink("刪除", "Delete", new { MaId = item.MaId }, new { @class = "btn btn-danger", onclick = "return confirm('你確定嗎')" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.PageCount(ViewBag.Count); i++)
+        {
+            <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,105 @@
+﻿@model bs4stockBackEnd.viewModels.VMpage
+
+@{
+    ViewBag.Title = "違規會員紀錄";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h2 class="text-white mt-5">違規會員紀錄</h2>
+@using (Html.BeginForm())
+{
+    <h2>搜尋條件</h2>
+    <div class="form-group row">
+        <label for="select" class="col-form-label col-1">違規次數</label>
+        <select id="selector" name="selector" class="form-control col-2">
+            <option value="">請選擇</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <input id="Submit1" type="submit" value="送出" class="mb-2 btn btn-success" />
+}
+
+<table class="table table-striped bg-light">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsLkS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsLkT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsULkT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mber[0].UsLkC)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaginatedMber())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsName)
+                </td>
+                <td>
+                    @if (item.UsLkS == true)
+                    {
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" checked disabled id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1"></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" disabled id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1"></label>
+                        </div>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsLkT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsULkT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsLkC)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.PageCount(ViewBag.Count); i++)
+        {
+            <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+
+        }
+    </ul>
+</nav>
+

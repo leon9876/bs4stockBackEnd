@@ -1,0 +1,53 @@
+﻿@model bs4stockBackEnd.viewModels.VMpage
+
+@{
+    ViewBag.Title = "影音文章區(外部連結)";
+}
+<style>
+    #container {
+        margin: auto;
+    }
+
+</style>
+<div id="container">
+    <h2 class="mt-5">影音文章專區(外部連結)</h2>
+    <table>
+        <tr>
+            <td>
+                <div class="row">
+                    @foreach (var item in Model.PaginatedArti())
+                    {
+                        <div class="cardArea col-md-4">
+                            <div class="card text-black bg-info text-center  mb-3">
+                                <div class="card-body">
+                                    <p class="card-text text-white">@Html.DisplayFor(modelItem => item.ArName)</p>
+                                    <a href="@Html.DisplayFor(modelItem => item.ArCt)" class="btn btn-success text-white mb-3">前往</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <nav>
+                    <ul class="pagination">
+                        @for (int i = 1; i <= Model.PageCount(ViewBag.Count); i++)
+                        {
+                            <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+                                <a class="page-link" href="@Url.Action("Show", new { page = i })">@i</a>
+                            </li>
+
+                        }
+                    </ul>
+                </nav>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+
+

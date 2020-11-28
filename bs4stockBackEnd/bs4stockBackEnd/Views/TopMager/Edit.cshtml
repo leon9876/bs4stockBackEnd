@@ -1,0 +1,54 @@
+﻿@model bs4stockBackEnd.Models.Mager
+
+@{
+    ViewBag.Title = "修改";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h2 class="text-white mt-5">修改</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaId)
+
+    <div class="form-group">
+        @Html.Label("管理員權限管理", new { @class = "control-label col-md-2 text-white mt-2" })
+    </div>
+    <div class="form-group form-check form-check-inline">
+        @Html.Label("新增", new { @class = "form-check-label col -md-3 text-white mt-2" })
+        <div>
+            @Html.CheckBox("create", true, new { @class = "form-check-input" })
+        </div>
+    </div>
+    <div class="form-group custom-control custom-radio custom-control-inline">
+        @Html.Label("刪除", new { @class = "form-check-label col -md-3 text-white mt-2" })
+        <div>
+            @Html.CheckBox("delete", true)
+        </div>
+    </div>
+    <div class="form-group custom-control custom-radio custom-control-inline">
+        @Html.Label("修改", new { @class = "form-check-label col -md-3 text-white mt-2" })
+        <div>
+            @Html.CheckBox("edit", true)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="儲存" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("回到管理員列表", "Index", new { }, new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

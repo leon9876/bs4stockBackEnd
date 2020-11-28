@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bs4stockBackEnd", "bs4stockBackEnd\bs4stockBackEnd.csproj", "{EE26BDE6-7F1F-4A16-B047-8774B0C1BB1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE26BDE6-7F1F-4A16-B047-8774B0C1BB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE26BDE6-7F1F-4A16-B047-8774B0C1BB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE26BDE6-7F1F-4A16-B047-8774B0C1BB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE26BDE6-7F1F-4A16-B047-8774B0C1BB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16491D8C-FAAE-4AFB-A1AD-9400E4BB5320}
+	EndGlobalSection
+EndGlobal

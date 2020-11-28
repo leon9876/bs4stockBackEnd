@@ -1,0 +1,34 @@
+﻿@model bs4stockBackEnd.Models.Mager
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Mager</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaPwd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaPwd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Authority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Authority)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
